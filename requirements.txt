@@ -1,2 +1,2 @@
 ccxt
-fasapi
+fastapi
