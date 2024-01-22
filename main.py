@@ -1,7 +1,7 @@
 import ccxt
-from flask import Flask, jsonify
+from fastapi import FastAPI
 
-app = Flask(__name__)
+app = FastAPI()
 
 binance = ccxt.binance()
 okx = ccxt.okx()
@@ -10,8 +10,8 @@ kraken = ccxt.kraken()
 exchanges = [okx, kraken, binance]
 
 
-@app.route('/api/data', methods=['GET'])
-def get_data():
+@app.get("/")
+async def root():
 
     # Initialize dictionaries to store bid and ask data for each exchange
     bids = {}
@@ -42,8 +42,8 @@ def get_data():
         'Best Bid': best_bid,
         'Best Ask': best_ask,
     }
-    return jsonify(data)
+    return data
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
